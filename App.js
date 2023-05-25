@@ -5,6 +5,8 @@ import { useState } from 'react';
 import HomeView from './src/Views/HomeView';
 import RegistrationView from './src/Views/RegistrationView';
 import LoginView from './src/Views/LoginView';
+import ProfileView from './src/Views/ProfileView'
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
 //Para la navegación entre las pantallas
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,7 +27,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 
-  const [ user, setUser ] = useState({
+  const [user, setUser] = useState({
     email: "",
     password: "",
     name: "",
@@ -35,7 +37,7 @@ export default function App() {
     phone: ""
   });
 
-  const [ isAuthenticated, setAuthenticated ]  = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(false);
   //Funciones utilizarias para la gestión del estado del usuario
   const logIn = (userData) => {
     //Aquí se debería hacer la lógica de inicio de sesión
@@ -77,9 +79,34 @@ export default function App() {
 
       <NavigationContainer>
         {isAuthenticated ? (
-          <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeView} />
-            
+          <Tab.Navigator 
+          initialRouteName='Home'
+          screenOptions={{
+            /*Colores bottomNavigator*/
+            tabBarActiveTintColor: '#39ab22',
+            tabBarInactiveTintColor: '#707070'
+          }}>
+            <Tab.Screen name="Resources" component={HomeView}
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ color, size }) => (
+                  <Entypo name="light-bulb" color={color} size={size} />
+                ),
+              }} />
+            <Tab.Screen name="Home" component={HomeView}
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons name="home" color={color} size={size} />
+                ),
+              }} />
+            <Tab.Screen name="Profile" component={ProfileView}
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ color, size }) => (
+                  <MaterialCommunityIcons name="account" color={color} size={size} />
+                ),
+              }} />
           </Tab.Navigator>
         ) : (
           <Stack.Navigator>
