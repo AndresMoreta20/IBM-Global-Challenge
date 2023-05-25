@@ -79,13 +79,16 @@ export default function App() {
 
       <NavigationContainer>
         {isAuthenticated ? (
+          /*Creqación del bottomNavigator*/
           <Tab.Navigator 
+          /*Se define la ruta en la que empieza*/
           initialRouteName='Home'
           screenOptions={{
             /*Colores bottomNavigator*/
             tabBarActiveTintColor: '#39ab22',
             tabBarInactiveTintColor: '#707070'
           }}>
+            {/*En cada Tab.Screen hay un ícono propio de expo que se trae de @expo/vector-icons*/}
             <Tab.Screen name="Resources" component={HomeView}
               options={{
                 tabBarLabel: '',
