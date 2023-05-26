@@ -78,34 +78,36 @@ export default function App() {
       </View> */}
 
       <NavigationContainer>
-        {isAuthenticated ? (
+        {/*isAuthenticated*/}
+        {true ? (
           /*Creqación del bottomNavigator*/
           <Tab.Navigator 
           /*Se define la ruta en la que empieza*/
-          initialRouteName='Home'
+          initialRouteName='Profile'
           screenOptions={{
             /*Colores bottomNavigator*/
             tabBarActiveTintColor: '#39ab22',
-            tabBarInactiveTintColor: '#707070'
+            tabBarInactiveTintColor: '#707070',
+            tabBarShowLabel: false
           }}>
             {/*En cada Tab.Screen hay un ícono propio de expo que se trae de @expo/vector-icons*/}
             <Tab.Screen name="Resources" component={HomeView}
               options={{
-                tabBarLabel: '',
+                tabBarLabel:'Resources',
                 tabBarIcon: ({ color, size }) => (
                   <Entypo name="light-bulb" color={color} size={size} />
                 ),
               }} />
             <Tab.Screen name="Home" component={HomeView}
               options={{
-                tabBarLabel: '',
+                tabBarLabel: 'Home',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="home" color={color} size={size} />
                 ),
               }} />
             <Tab.Screen name="Profile" component={ProfileView}
               options={{
-                tabBarLabel: '',
+                tabBarLabel: 'Profile',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="account" color={color} size={size} />
                 ),

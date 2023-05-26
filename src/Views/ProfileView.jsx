@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, FlatList } from 'react-native';
-import imagen from '../test_img/img.png';
+import imagen from '../../assets/img.png';
 import Post from '../Components/Post.jsx';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -26,23 +26,19 @@ export default ProfileView = () => {
             <Text style={styles.titulo}>{userData.name}</Text>
             {/*Recuadro de información del usuario*/}
             <View style={styles.infoUsuario}>
-                <View style={styles.imagenYBoton}>
-                    <View style={styles.profileImgContainer}>
-                        <Image
-                            source={imagen}
-                            style={styles.profileImg}
-                        />
-                    </View>
-                    <TouchableOpacity style={styles.editBtn} onPress={goProfileEdit()/*Debería navegar a pagina de edición perfil*/}>
-                        <Text style={{ color: '#fff' }}>Editar</Text>
-                    </TouchableOpacity>
-                </View>
+                <Image
+                    source={imagen}
+                    style={styles.profileImg}
+                />
                 <View style={styles.detallesUsuario}>
                     <Text style={styles.texto}>{userData.email}</Text>
                     <Text style={styles.texto}>{userData.phone}</Text>
                     <Text style={styles.texto}>{userData.country}</Text>
                 </View>
             </View>
+            <TouchableOpacity style={styles.editBtn} onPress={goProfileEdit()/*Debería navegar a pagina de edición perfil*/}>
+                <Text style={{ color: '#fff' }}>Editar</Text>
+            </TouchableOpacity>
             <Text style={styles.titulo}>Mis publicaciones</Text>
             <View style={styles.publicacionesUsuario}>
                 {/*!! Talvez se debe cambiar este flatlist por una función si queremos que todo se escrolee a la 
@@ -55,32 +51,32 @@ export default ProfileView = () => {
                             descripcion: 'Descripción de la publicación',
                             tags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
-                            img: '../test_img/img.png'
+                            img: '../../assets/img.png'
+                        },
+                        {
+                            product: 'Nombre del producto',
+                            descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque ante tortor, eget molestie dui efficitur non. Curabitur auctor, leo eu placerat maximus, erat orci tincidunt est, facilisis vulputate neque nulla in urna. Nam eu ultrices nisi, eget sollicitudin metus. Duis bibendum lacus eros, sit amet ullamcorper eros commodo quis. Proin aliquet vitae turpis eu consequat. Nam finibus velit non eleifend congue. Etiam leo augue, efficitur sit amet ullamcorper eu, hendrerit vitae diam. Integer vulputate aliquet lectus ac mattis.',
+                            tags: ['tag1', 'tag2', 'tag3'],
+                            likes: 234,
+                            img: '../../assets/img.png'
                         },
                         {
                             product: 'Nombre del producto',
                             descripcion: 'Descripción de la publicación',
                             tags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
-                            img: '../test_img/img.png'
+                            img: '../../assets/img.png'
                         },
                         {
                             product: 'Nombre del producto',
                             descripcion: 'Descripción de la publicación',
                             tags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
-                            img: '../test_img/img.png'
-                        },
-                        {
-                            product: 'Nombre del producto',
-                            descripcion: 'Descripción de la publicación',
-                            tags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            img: '../test_img/img.png'
+                            img: '../../assets/img.png'
                         },
                     ]}
                     /*Configuración de como se imprime cada elemento*/
-                    renderItem={({ item }) => <Post props={item}/>}>
+                    renderItem={({ item }) => <Post props={item} />}>
                 </FlatList>
             </View>
         </>
@@ -102,7 +98,7 @@ const styles = StyleSheet.create({
     /* Estilos recuadro información usuario */
     infoUsuario: {
         width: '90%',
-        height: '25%',
+        height: '20%',
         marginHorizontal: '5%',
         display: 'flex',
         flexDirection: 'row',
@@ -113,27 +109,24 @@ const styles = StyleSheet.create({
     /* Estilos primera columna información de usuario */
     imagenYBoton: {
         /*!! toda esta columna me está dando problema, no se como hacer para que se vea bien*/
-        width: '35%',
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    profileImgContainer: {
-        width: '100%',
-        height: '60%',
-    },
     profileImg: {
+        width: '35%',
         height: '100%',
-        width: '100%',
-        resizeMode: 'contain',
+        resizeMode: 'center'
     },
+
+    /*Estilos del botón*/
     editBtn: {
-        /*!! Por alguna razón el botón no toma todo el ancho del contenedor*/
-        width: '100%',
-        height: '30%',
-        backgroundColor: '#000'
+        width: '20%',
+        padding: '1%',
+        backgroundColor: '#000',
+        alignItems: 'center',
+        marginLeft: '10%'
     },
 
     /* Estilos segunda columna información de usuario */
@@ -153,12 +146,11 @@ const styles = StyleSheet.create({
 
     /* Estilod feed de Mis publicaciones */
     publicacionesUsuario: {
-        height: '55%',
+        height: '54%',
         width: '90%',
         marginHorizontal: '5%'
     },
-    post:{
-        height: '30%',
+    post: {
         width: '100%'
     }
 });
