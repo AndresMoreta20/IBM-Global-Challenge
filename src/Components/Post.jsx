@@ -4,6 +4,22 @@ import { FontAwesome, Feather, AntDesign } from '@expo/vector-icons';
 
 export default Post = ({ props }) => {
 
+    function hashtag (hashtag){
+        return <View style={styles.hashtag}>
+            <Text>{hashtag}</Text>
+        </View>;
+    }
+
+    function MyComponentList({ list }){
+        return (
+          <View>
+            {list.map((item) => (
+              hashtag(item)
+            ))}
+          </View>
+        );
+      };
+
     return (
         <View className="post" style={styles.post}>
             <View style={styles.encabezado}>
@@ -20,16 +36,17 @@ export default Post = ({ props }) => {
             <View style={styles.cuerpo}>
                 <Image
                     /*!! Aquí no sé como se recibe la imagen o como manejarla*/
-                    source={require('../test_img/img.png')}
+                    source={require('../../assets/img.png')}
                     style={styles.imagenPost}
                 />
                 <View style={styles.infoPost}>
-                    <Text>{props.descripcion}</Text>
-                    <View>
+                    <Text style={styles.descripcion}>{props.descripcion}</Text>
+                    <View style={styles.hashtags}>
                         {/*!! Aquí debe recibirse los hashtags y hacer una función que devuleva Text's
                         con los hashtags*/}
+
                     </View>
-                    <View>
+                    <View style={styles.likes}>
                         <AntDesign name="like2" size={20} color="black" />
                         <Text>{props.likes}</Text>
                     </View>
@@ -60,14 +77,27 @@ const styles = StyleSheet.create({
     },
     cuerpo: {
         display: 'flex',        
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     imagenPost: {
         width: '30%',
         height: '100%',
-        resizeMode: 'stretch'
+        resizeMode: 'center'
     },
     infoPost: {
+        width: '65%',
+        height: '100%'
+    },
+    hashtags:{
+
+    },
+    likes:{
+
+    },
+    hashtag:{
+        backgroundColor: '#eeeeee',
+        borderRadius: '2%',
 
     }
 });
