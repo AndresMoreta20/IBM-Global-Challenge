@@ -1,7 +1,13 @@
-import React, { Component, useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { Button, Text, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AuthContext from './AuthContext';
 
 const LoginView = () => {
+    const { logInUser } = useContext(AuthContext);
+    //Para navegar entre componentes
+    const navigation = useNavigation();
+
     //Los refs se utilizar para apuntar directamente a un elemento de etiquetas (los que están dentro del return)
     //Se setean en null en un inicio pero en la etiqueta se asigna la referencia a cada ref correspondiente
     const emailInputRef = useRef(null);
@@ -14,6 +20,22 @@ const LoginView = () => {
     //Esto almacena los errores en caso de ser necesario
     const [showEmailError, setShowEmailError] = useState(false);
     const [showPasswordError, setShowPasswordError] = useState(false);
+
+    const inputs = [
+        emailInputRef,
+        passwordInputRef
+    ];
+
+    const onChangeInputHandler = (name, value) => {
+        switch (name) {
+            case 'email':
+                setEmail(value);
+                break;
+            case 'password':
+                setPassword(value);
+                break;
+        }
+    };
 
 
     //Hace que cuando des en siguiente en el teclado de celular se seleccione el próximo input
@@ -49,8 +71,8 @@ const LoginView = () => {
         }
     };
 
-    const goToLoginPage = () => {
-        navigation.navigate('LogIn');
+    const goRegisterPage = () => {
+        navigation.navigate('SignIn');
     };
 
     //Guarda el input activo cuando ese input gana el focus
@@ -71,7 +93,7 @@ const LoginView = () => {
         setShowEmailError(email.length < 4);
         setShowPasswordError(password.length < 4);
 
-        register({
+        logInUser({
             email,
             password,
         });
@@ -121,8 +143,8 @@ const LoginView = () => {
 
             <View style={styles.btnContainer}>
                 <Button title="GO" onPress={submitPressed} />
-                <TouchableOpacity onPress={goToLoginPage}>
-                    <Text>No tienes cuenta? Registrate sesión</Text>
+                <TouchableOpacity onPress={goRegisterPage}>
+                    <Text>No tienes cuenta? Registrate</Text>
                 </TouchableOpacity>
             </View>
         </View>

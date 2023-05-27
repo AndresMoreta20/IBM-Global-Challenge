@@ -39,7 +39,7 @@ const RegistrationView = () => {
   const [showAddressError, setShowAddressError] = useState(false);
   const [showPhoneError, setShowPhoneError] = useState(false);
 
-  const { register } = useContext(AuthContext);
+  const { registerUser } = useContext(AuthContext);
 
   const inputs = [
     emailInputRef,
@@ -130,7 +130,7 @@ const RegistrationView = () => {
     setShowAddressError(address.length < 4);
     setShowPhoneError(phone.length < 4);
 
-    register({
+    registerUser({
       email,
       password,
       firstname,

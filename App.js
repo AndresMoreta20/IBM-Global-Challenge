@@ -18,6 +18,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AuthProvider } from './src/Views/AuthContext';
 
 
+
+//Para manejo de usuario
+import { register, logIn } from './src/auth/authControll.js';
 // ---------------------------------------------------------------
 
 
@@ -39,8 +42,11 @@ export default function App() {
 
   const [isAuthenticated, setAuthenticated] = useState(false);
   //Funciones utilizarias para la gestión del estado del usuario
-  const logIn = (userData) => {
+  const logInUser = async (userData) => {
     //Aquí se debería hacer la lógica de inicio de sesión
+    console.log("UserData en login: ", userData);
+    const res = await logIn(userData);
+    console.log("Login RES: ", res);
 
     //Si es exitosa=>
     setUser(userData);
@@ -55,16 +61,35 @@ export default function App() {
 
   }
 
-  const register = (userData) => {
-    setUser(userData);
-    setAuthenticated(true);
-    console.log("Registrado correctamente, isAuthenticated: ", isAuthenticated);
+  const registerUser = async (userData) => {
+    //Aquí va la lógica de registro en firebase
+    try {
+      const res = await register(userData);
+      console.log("Usuario creado satisfactoriamente: ", res);
+      setUser(res);
+      setAuthenticated(true);
+      console.log("Registrado correctamente, isAuthenticated: ", isAuthenticated);
+    } catch (error) {
+      setUser({
+        email: "",
+        password: "",
+        name: "",
+        lastName: "",
+        country: "",
+        address: "",
+        phone: ""
+      });
+      setAuthenticated(false);
+      console.log("NO registrado correctamente, isAuthenticated: ", isAuthenticated);
+      console.error(error);
+      console.log("No se pudo registrar usuario");
+    }
   }
 
   return (
     // Aquí AuthProvider está pasando todas las funciones/propiedades que se 
     //Definieron en el archivo AuthProvider.jsx
-    <AuthProvider value={{ user, setUser, setAuthenticated, isAuthenticated, register, logOut, logIn }}>
+    <AuthProvider value={{ user, setUser, setAuthenticated, isAuthenticated, registerUser, logOut, logInUser }}>
       {/* <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeView} />
@@ -79,21 +104,21 @@ export default function App() {
 
       <NavigationContainer>
         {/*isAuthenticated*/}
-        {true ? (
+        {isAuthenticated ? (
           /*Creqación del bottomNavigator*/
-          <Tab.Navigator 
-          /*Se define la ruta en la que empieza*/
-          initialRouteName='Profile'
-          screenOptions={{
-            /*Colores bottomNavigator*/
-            tabBarActiveTintColor: '#39ab22',
-            tabBarInactiveTintColor: '#707070',
-            tabBarShowLabel: false
-          }}>
+          <Tab.Navigator
+            /*Se define la ruta en la que empieza*/
+            initialRouteName='Profile'
+            screenOptions={{
+              /*Colores bottomNavigator*/
+              tabBarActiveTintColor: '#39ab22',
+              tabBarInactiveTintColor: '#707070',
+              tabBarShowLabel: false
+            }}>
             {/*En cada Tab.Screen hay un ícono propio de expo que se trae de @expo/vector-icons*/}
             <Tab.Screen name="Resources" component={HomeView}
               options={{
-                tabBarLabel:'Resources',
+                tabBarLabel: 'Resources',
                 tabBarIcon: ({ color, size }) => (
                   <Entypo name="light-bulb" color={color} size={size} />
                 ),
@@ -116,7 +141,7 @@ export default function App() {
         ) : (
           <Stack.Navigator>
             <Stack.Screen name="SignIn" component={RegistrationView} options={{ headerShown: false }} />
-            <Tab.Screen name="LogIn" component={LoginView} />
+            <Tab.Screen name="LogIn" component={LoginView} options={{ headerShown: false }}/>
           </Stack.Navigator>
         )}
       </NavigationContainer>
