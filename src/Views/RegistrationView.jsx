@@ -39,7 +39,7 @@ const RegistrationView = () => {
   const [showAddressError, setShowAddressError] = useState(false);
   const [showPhoneError, setShowPhoneError] = useState(false);
 
-  const { register } = useContext(AuthContext);
+  const { registerUser } = useContext(AuthContext);
 
   const inputs = [
     emailInputRef,
@@ -130,7 +130,7 @@ const RegistrationView = () => {
     setShowAddressError(address.length < 4);
     setShowPhoneError(phone.length < 4);
 
-    register({
+    registerUser({
       email,
       password,
       firstname,
@@ -146,141 +146,141 @@ const RegistrationView = () => {
   };
 
   return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Registration</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>Registration</Text>
 
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Email"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('email', value)
-            }
-            ref={emailInputRef}
-          />
-          {showEmailError && (
-            <Text style={styles.errorText}>
-              Please enter your email address.
-            </Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Password"
-            style={styles.textInput}
-            secureTextEntry={true}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('password', value)
-            }
-            ref={passwordInputRef}
-          />
-          {showPasswordError && (
-            <Text style={styles.errorText}>Please enter a password.</Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="First Name"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('firstname', value)
-            }
-            ref={firstnameInputRef}
-          />
-          {showFirstnameError && (
-            <Text style={styles.errorText}>Please enter your first name.</Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Last Name"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('lastname', value)
-            }
-            ref={lastnameInputRef}
-          />
-          {showLastnameError && (
-            <Text style={styles.errorText}>Please enter your last name.</Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Country"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('country', value)
-            }
-            ref={countryInputRef}
-          />
-          {showCountryError && (
-            <Text style={styles.errorText}>Please enter your country.</Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Address"
-            style={styles.textInput}
-            returnKeyType="next"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('address', value)
-            }
-            ref={addressInputRef}
-          />
-          {showAddressError && (
-            <Text style={styles.errorText}>Please enter your address.</Text>
-          )}
-        </View>
-
-        <View style={styles.inputTextWrapper}>
-          <TextInput
-            placeholder="Phone"
-            keyboardType="phone-pad"
-            style={styles.textInput}
-            returnKeyType="done"
-            onSubmitEditing={editNextInput}
-            onFocus={onInputFocus}
-            onChangeText={(value) =>
-              onChangeInputHandler('phone', value)
-            }
-            ref={phoneInputRef}
-          />
-          {showPhoneError && (
-            <Text style={styles.errorText}>
-              Please enter your phone number.
-            </Text>
-          )}
-        </View>
-
-        <View style={styles.btnContainer}>
-          <Button title="Submit" onPress={submitPressed} />
-          <TouchableOpacity onPress={goToLoginPage}>
-            <Text>Ya tienes cuenta? Inicia sesión</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Email"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('email', value)
+          }
+          ref={emailInputRef}
+        />
+        {showEmailError && (
+          <Text style={styles.errorText}>
+            Please enter your email address.
+          </Text>
+        )}
       </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Password"
+          style={styles.textInput}
+          secureTextEntry={true}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('password', value)
+          }
+          ref={passwordInputRef}
+        />
+        {showPasswordError && (
+          <Text style={styles.errorText}>Please enter a password.</Text>
+        )}
+      </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="First Name"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('firstname', value)
+          }
+          ref={firstnameInputRef}
+        />
+        {showFirstnameError && (
+          <Text style={styles.errorText}>Please enter your first name.</Text>
+        )}
+      </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Last Name"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('lastname', value)
+          }
+          ref={lastnameInputRef}
+        />
+        {showLastnameError && (
+          <Text style={styles.errorText}>Please enter your last name.</Text>
+        )}
+      </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Country"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('country', value)
+          }
+          ref={countryInputRef}
+        />
+        {showCountryError && (
+          <Text style={styles.errorText}>Please enter your country.</Text>
+        )}
+      </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Address"
+          style={styles.textInput}
+          returnKeyType="next"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('address', value)
+          }
+          ref={addressInputRef}
+        />
+        {showAddressError && (
+          <Text style={styles.errorText}>Please enter your address.</Text>
+        )}
+      </View>
+
+      <View style={styles.inputTextWrapper}>
+        <TextInput
+          placeholder="Phone"
+          keyboardType="phone-pad"
+          style={styles.textInput}
+          returnKeyType="done"
+          onSubmitEditing={editNextInput}
+          onFocus={onInputFocus}
+          onChangeText={(value) =>
+            onChangeInputHandler('phone', value)
+          }
+          ref={phoneInputRef}
+        />
+        {showPhoneError && (
+          <Text style={styles.errorText}>
+            Please enter your phone number.
+          </Text>
+        )}
+      </View>
+
+      <View style={styles.btnContainer}>
+        <Button title="Submit" onPress={submitPressed} />
+        <TouchableOpacity onPress={goToLoginPage}>
+          <Text>Ya tienes cuenta? Inicia sesión</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
