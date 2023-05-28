@@ -1,16 +1,17 @@
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome, Feather, AntDesign } from '@expo/vector-icons';
+import PrimaryColor from './Estilos.jsx';
 
 
-export default Post = ({ props }) => {
+export default SuggestionPost = ({ postInfo, editable }) => {
 
     function hashtag (hashtag){
-        return <View style={styles.hashtag}>
-            <Text>{hashtag}</Text>
+        return <View style={styles.hashtag} key={hashtag}>
+            <Text style={{color: '#000'}}>{hashtag}</Text>
         </View>;
     }
 
-    function MyComponentList({ list }){
+    function listaHastags( list ){
         return (
           <View>
             {list.map((item) => (
@@ -23,32 +24,32 @@ export default Post = ({ props }) => {
     return (
         <View className="post" style={styles.post}>
             <View style={styles.encabezado}>
-                <Text>{props.product}</Text>
-                <View style={styles.editButtons}>
+                <Text>{postInfo.title}</Text>
+                {editable?<View style={styles.editButtons}>
                     <TouchableOpacity>
                         <Feather name="edit-2" size={20} color="black" />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <FontAwesome name="remove" size={20} color="black" />
                     </TouchableOpacity>
-                </View>
+                </View>:null}
             </View>
             <View style={styles.cuerpo}>
                 <Image
-                    /*!! Aquí no sé como se recibe la imagen o como manejarla*/
+                    /*!! Aquí no sé como se recibe la imagen o como manejarla
+                      !! Se debe cambiar el require por un {uri: postInfo.image}*/
                     source={require('../../assets/img.png')}
                     style={styles.imagenPost}
                 />
                 <View style={styles.infoPost}>
-                    <Text style={styles.descripcion}>{props.descripcion}</Text>
+                    <Text style={styles.description}>{postInfo.description}</Text>
                     <View style={styles.hashtags}>
-                        {/*!! Aquí debe recibirse los hashtags y hacer una función que devuleva Text's
-                        con los hashtags*/}
-
+                        {/*!! Falta editar los estilos*/}
+                        {listaHastags(postInfo.hashtags)}
                     </View>
                     <View style={styles.likes}>
                         <AntDesign name="like2" size={20} color="black" />
-                        <Text>{props.likes}</Text>
+                        <Text>{postInfo.likes}</Text>
                     </View>
                 </View>
             </View>
@@ -68,12 +69,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         font: 15,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: '2%'
     },
-    /*!! Falta añadir espacio entre los botones*/
     editButtons: {
         display: 'flex',
         flexDirection: 'row',
+        gap: 10
     },
     cuerpo: {
         display: 'flex',        
@@ -89,15 +91,29 @@ const styles = StyleSheet.create({
         width: '65%',
         height: '100%'
     },
-    hashtags:{
+    description:{
+        borderColor: '#000',
+        borderWidth: 1 ,
+        borderRadius: 4,
+        padding: 5,
+        textAlign: 'justify',
 
+    },
+    hashtags:{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginBottom: '5%'
     },
     likes:{
-
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        gap: 10
     },
+    /*!! No sé porque no sirven los estilos de los hashtags */
     hashtag:{
         backgroundColor: '#eeeeee',
-        borderRadius: '2%',
-
+        padding: '0.5%',
+        alignSelf: 'flex-start'
     }
 });

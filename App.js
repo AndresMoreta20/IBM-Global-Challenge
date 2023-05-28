@@ -61,7 +61,16 @@ export default function App() {
     console.log("Registrado correctamente, isAuthenticated: ", isAuthenticated);
   }
 
+  {/*Datos de prueba, deberían venir en props de la función*/ }
+  const userData = {
+    name: "Tito Jaramillo",
+    email: "tito.jaramillo@udla.edu.ec",
+    phone: "+593 996693539",
+    country: "Ecuador",
+  };
+
   return (
+
     // Aquí AuthProvider está pasando todas las funciones/propiedades que se 
     //Definieron en el archivo AuthProvider.jsx
     <AuthProvider value={{ user, setUser, setAuthenticated, isAuthenticated, register, logOut, logIn }}>
@@ -81,19 +90,20 @@ export default function App() {
         {/*isAuthenticated*/}
         {true ? (
           /*Creqación del bottomNavigator*/
-          <Tab.Navigator 
-          /*Se define la ruta en la que empieza*/
-          initialRouteName='Profile'
-          screenOptions={{
-            /*Colores bottomNavigator*/
-            tabBarActiveTintColor: '#39ab22',
-            tabBarInactiveTintColor: '#707070',
-            tabBarShowLabel: false
-          }}>
+          <Tab.Navigator
+            /*Se define la ruta en la que empieza*/
+            initialRouteName='Profile'
+            screenOptions={{
+              /*Colores bottomNavigator*/
+              tabBarActiveTintColor: '#39ab22',
+              tabBarInactiveTintColor: '#707070',
+              tabBarShowLabel: false,
+              headerShown: false
+            }}>
             {/*En cada Tab.Screen hay un ícono propio de expo que se trae de @expo/vector-icons*/}
             <Tab.Screen name="Resources" component={HomeView}
               options={{
-                tabBarLabel:'Resources',
+                tabBarLabel: 'Resources',
                 tabBarIcon: ({ color, size }) => (
                   <Entypo name="light-bulb" color={color} size={size} />
                 ),
@@ -105,13 +115,16 @@ export default function App() {
                   <MaterialCommunityIcons name="home" color={color} size={size} />
                 ),
               }} />
-            <Tab.Screen name="Profile" component={ProfileView}
+            <Tab.Screen name="Profile" 
               options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="account" color={color} size={size} />
                 ),
-              }} />
+              }}
+              >
+                {() => <ProfileView userData={userData}/>}
+              </Tab.Screen>
           </Tab.Navigator>
         ) : (
           <Stack.Navigator>

@@ -1,18 +1,10 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, FlatList } from 'react-native';
 import imagen from '../../assets/img.png';
-import Post from '../Components/Post.jsx';
+import SuggestionPost from '../Components/SuggestionPost.jsx';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default ProfileView = () => {
-
-    {/*Datos de prueba, deberían venir en props de la función*/ }
-    userData = {
-        name: "Tito Jaramillo",
-        email: "tito.jaramillo@udla.edu.ec",
-        phone: "+593 996693539",
-        country: "Ecuador",
-    };
+export default ProfileView = ({ userData }) => {
 
     /*Función que maneja la acción del botón, debería redirigir al usuario a Editar perfil
     !! Aunque se podría reemplazar con un Stack*/
@@ -47,36 +39,36 @@ export default ProfileView = () => {
                     /*Datos de prueba, esto debería sacarse de algun lado con los props¿? */
                     data={[
                         {
-                            product: 'Nombre del producto',
-                            descripcion: 'Descripción de la publicación',
-                            tags: ['tag1', 'tag2', 'tag3'],
+                            title: 'Nombre del titleo',
+                            description: 'Descripción de la publicación',
+                            hashtags: ['tag1', 'tag2', 'tag3'],
+                            likes: 234,
+                            image: '../../assets/img.png'
+                        },
+                        {
+                            title: 'Nombre del titleo',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque ante tortor, eget molestie dui efficitur non. Curabitur auctor, leo eu placerat maximus, erat orci tincidunt est, facilisis vulputate neque nulla in urna. Nam eu ultrices nisi, eget sollicitudin metus. Duis bibendum lacus eros, sit amet ullamcorper eros commodo quis. Proin aliquet vitae turpis eu consequat. Nam finibus velit non eleifend congue. Etiam leo augue, efficitur sit amet ullamcorper eu, hendrerit vitae diam. Integer vulputate aliquet lectus ac mattis.',
+                            hashtags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
                             img: '../../assets/img.png'
                         },
                         {
-                            product: 'Nombre del producto',
-                            descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque ante tortor, eget molestie dui efficitur non. Curabitur auctor, leo eu placerat maximus, erat orci tincidunt est, facilisis vulputate neque nulla in urna. Nam eu ultrices nisi, eget sollicitudin metus. Duis bibendum lacus eros, sit amet ullamcorper eros commodo quis. Proin aliquet vitae turpis eu consequat. Nam finibus velit non eleifend congue. Etiam leo augue, efficitur sit amet ullamcorper eu, hendrerit vitae diam. Integer vulputate aliquet lectus ac mattis.',
-                            tags: ['tag1', 'tag2', 'tag3'],
+                            title: 'Nombre del titleo',
+                            description: 'Descripción de la publicación',
+                            hashtags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
                             img: '../../assets/img.png'
                         },
                         {
-                            product: 'Nombre del producto',
-                            descripcion: 'Descripción de la publicación',
-                            tags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            img: '../../assets/img.png'
-                        },
-                        {
-                            product: 'Nombre del producto',
-                            descripcion: 'Descripción de la publicación',
-                            tags: ['tag1', 'tag2', 'tag3'],
+                            title: 'Nombre del titleo',
+                            description: 'Descripción de la publicación',
+                            hashtags: ['tag1', 'tag2', 'tag3'],
                             likes: 234,
                             img: '../../assets/img.png'
                         },
                     ]}
                     /*Configuración de como se imprime cada elemento*/
-                    renderItem={({ item }) => <Post props={item} />}>
+                    renderItem={({ item }) => <SuggestionPost postInfo={item} editable={true}/>}>
                 </FlatList>
             </View>
         </>
