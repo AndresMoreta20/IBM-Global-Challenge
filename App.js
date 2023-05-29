@@ -20,7 +20,7 @@ import { AuthProvider } from './src/Views/AuthContext';
 
 
 //Para manejo de usuario
-import { register, logIn } from './src/auth/authControll.js';
+import { register, logIn, signInWithGoogle } from './src/auth/authControll.js';
 // ---------------------------------------------------------------
 
 
@@ -61,6 +61,12 @@ export default function App() {
 
   }
 
+  const registerWithGoogle = async () =>{
+    console.log("Registro con Google APP");
+    await signInWithGoogle();
+    console.log("Registro con Google APP 2");
+  }
+
   const registerUser = async (userData) => {
     //Aquí va la lógica de registro en firebase
     try {
@@ -89,7 +95,7 @@ export default function App() {
   return (
     // Aquí AuthProvider está pasando todas las funciones/propiedades que se 
     //Definieron en el archivo AuthProvider.jsx
-    <AuthProvider value={{ user, setUser, setAuthenticated, isAuthenticated, registerUser, logOut, logInUser }}>
+    <AuthProvider value={{ user, registerWithGoogle, setUser, setAuthenticated, isAuthenticated, registerUser, logOut, logInUser }}>
       {/* <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeView} />

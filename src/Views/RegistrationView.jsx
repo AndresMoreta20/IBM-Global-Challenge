@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import {
   Button,
   TouchableOpacity,
@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useNavigation } from '@react-navigation/native';
 
 import AuthContext from './AuthContext';
+
 
 const RegistrationView = () => {
   const emailInputRef = useRef(null);
@@ -39,7 +40,7 @@ const RegistrationView = () => {
   const [showAddressError, setShowAddressError] = useState(false);
   const [showPhoneError, setShowPhoneError] = useState(false);
 
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, registerWithGoogle } = useContext(AuthContext);
 
   const inputs = [
     emailInputRef,
@@ -121,6 +122,9 @@ const RegistrationView = () => {
     }
   };
 
+  
+
+
   const submitPressed = () => {
     setShowEmailError(email.length < 4);
     setShowPasswordError(password.length < 4);
@@ -140,6 +144,11 @@ const RegistrationView = () => {
       phone
     });
   };
+
+  const googleRegister = async () =>{
+    console.log("googleRegister registerView");
+    await registerWithGoogle();
+  }
 
   const goToLoginPage = () => {
     navigation.navigate('LogIn');
@@ -280,6 +289,11 @@ const RegistrationView = () => {
           <Text>Ya tienes cuenta? Inicia sesión</Text>
         </TouchableOpacity>
       </View>
+
+      <Button
+        title="Google Sign-In"
+        onPress={() => googleRegister().then(() => console.log('Signed in with Google!'))}
+      />
     </View>
   );
 };
