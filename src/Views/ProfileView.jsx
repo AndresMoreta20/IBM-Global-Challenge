@@ -1,10 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, FlatList } from 'react-native';
 import imagen from '../../assets/img.png';
-import SuggestionPost from '../Components/SuggestionPost.jsx';
+import ProductPostEditable from '../Components/ProductPostEditable.jsx';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Black, DarkGray, Gray, Green, White } from '../Components/Estilos';
 
-export default ProfileView = ({ userData }) => {
+export default ProfileView = ({ userData, posts }) => {
 
     /*Función que maneja la acción del botón, debería redirigir al usuario a Editar perfil
     !! Aunque se podría reemplazar con un Stack*/
@@ -13,9 +14,9 @@ export default ProfileView = ({ userData }) => {
     }
 
     return (
-        <>{/*Pensabe usar un ScrollView pero me sale un errorc*/}
+        <>
             {/*Info usuario*/}
-            <Text style={styles.titulo}>{userData.name}</Text>
+            <Text style={styles.titulo}>{userData.firstname} {userData.lastname}</Text>
             {/*Recuadro de información del usuario*/}
             <View style={styles.infoUsuario}>
                 <Image
@@ -29,47 +30,14 @@ export default ProfileView = ({ userData }) => {
                 </View>
             </View>
             <TouchableOpacity style={styles.editBtn} onPress={goProfileEdit()/*Debería navegar a pagina de edición perfil*/}>
-                <Text style={{ color: '#fff' }}>Editar</Text>
+                <Text style={{ color: White }}>Editar</Text>
             </TouchableOpacity>
             <Text style={styles.titulo}>Mis publicaciones</Text>
             <View style={styles.publicacionesUsuario}>
-                {/*!! Talvez se debe cambiar este flatlist por una función si queremos que todo se escrolee a la 
-                vez y no se quede fijo el infoUsuario*/}
                 <FlatList
-                    /*Datos de prueba, esto debería sacarse de algun lado con los props¿? */
-                    data={[
-                        {
-                            title: 'Nombre del titleo',
-                            description: 'Descripción de la publicación',
-                            hashtags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            image: '../../assets/img.png'
-                        },
-                        {
-                            title: 'Nombre del titleo',
-                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque ante tortor, eget molestie dui efficitur non. Curabitur auctor, leo eu placerat maximus, erat orci tincidunt est, facilisis vulputate neque nulla in urna. Nam eu ultrices nisi, eget sollicitudin metus. Duis bibendum lacus eros, sit amet ullamcorper eros commodo quis. Proin aliquet vitae turpis eu consequat. Nam finibus velit non eleifend congue. Etiam leo augue, efficitur sit amet ullamcorper eu, hendrerit vitae diam. Integer vulputate aliquet lectus ac mattis.',
-                            hashtags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            img: '../../assets/img.png'
-                        },
-                        {
-                            title: 'Nombre del titleo',
-                            description: 'Descripción de la publicación',
-                            hashtags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            img: '../../assets/img.png'
-                        },
-                        {
-                            title: 'Nombre del titleo',
-                            description: 'Descripción de la publicación',
-                            hashtags: ['tag1', 'tag2', 'tag3'],
-                            likes: 234,
-                            img: '../../assets/img.png'
-                        },
-                    ]}
+                    data={posts}
                     /*Configuración de como se imprime cada elemento*/
-                    renderItem={({ item }) => <SuggestionPost postInfo={item} editable={true}/>}>
-                </FlatList>
+                    renderItem={({ item }) => <ProductPostEditable postInfo={item} editable={true} />} />
             </View>
         </>
     );
@@ -116,7 +84,7 @@ const styles = StyleSheet.create({
     editBtn: {
         width: '20%',
         padding: '1%',
-        backgroundColor: '#000',
+        backgroundColor: Black,
         alignItems: 'center',
         marginLeft: '10%'
     },

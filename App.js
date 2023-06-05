@@ -6,6 +6,8 @@ import HomeView from './src/Views/HomeView';
 import RegistrationView from './src/Views/RegistrationView';
 import LoginView from './src/Views/LoginView';
 import ProfileView from './src/Views/ProfileView'
+import ResourcesView from './src/Views/ResourcesView';
+import ProfileEditView from './src/Views/ProfileEditView';
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
 //Para la navegación entre las pantallas
@@ -21,6 +23,9 @@ import { AuthProvider } from './src/Views/AuthContext';
 
 //Para manejo de usuario
 import { register, logIn } from './src/auth/authControll.js';
+import DiscoverView from './src/Views/DiscoverView';
+import SalePostView from './src/Views/SalePostView';
+
 // ---------------------------------------------------------------
 
 
@@ -88,11 +93,70 @@ export default function App() {
 
   {/*Datos de prueba, deberían venir en props de la función*/ }
   const userData = {
-    name: "Tito Jaramillo",
+    firstname: "Tito",
+    lastname: "Jaramillo",
     email: "tito.jaramillo@udla.edu.ec",
     phone: "+593 996693539",
     country: "Ecuador",
   };
+
+  const posts = [
+    {
+      provider: 'Yo mismo',
+      name: 'Nombre del producto',
+      description: 'Descripción de la publicación',
+      degradationTime: 'opcional',
+      image: '../../assets/img.png',
+      unitOfMeasure: ' unidad de medida',
+      price: 23.50,
+      quantity: 100,
+
+      //!! Qué mismo pasa con los hastags 
+      hashtags: ['tag1', 'tag2', 'tag3'],
+      likes: 234,
+    },
+    {
+      provider: 'Yo mismo',
+      name: 'Nombre del producto',
+      description: 'Descripción de la publicación',
+      degradationTime: 'opcional',
+      image: '../../assets/img.png',
+      unitOfMeasure: ' unidad de medida',
+      price: 23.50,
+      quantity: 100,
+
+      //!! Qué mismo pasa con los hastags 
+      hashtags: ['tag1', 'tag2', 'tag3'],
+      likes: 234,
+    },
+    {
+      provider: 'Yo mismo',
+      name: 'Nombre del producto',
+      description: 'Descripción de la publicación',
+      degradationTime: 'opcional',
+      image: '../../assets/img.png',
+      unitOfMeasure: ' unidad de medida',
+      price: 23.50,
+      quantity: 100,
+
+      //!! Qué mismo pasa con los hastags 
+      hashtags: ['tag1', 'tag2', 'tag3'],
+      likes: 234,
+    },{
+      provider: 'Yo mismo',
+      name: 'Nombre del producto',
+      description: 'Descripción de la publicación',
+      degradationTime: 'opcional',
+      image: '../../assets/img.png',
+      unitOfMeasure: ' unidad de medida',
+      price: 23.50,
+      quantity: 100,
+
+      //!! Qué mismo pasa con los hastags 
+      hashtags: ['tag1', 'tag2', 'tag3'],
+      likes: 234,
+    }
+  ];
 
   return (
 
@@ -113,11 +177,12 @@ export default function App() {
 
       <NavigationContainer>
         {/*isAuthenticated*/}
-        {isAuthenticated ? (
+        {true ? (
           /*Creqación del bottomNavigator*/
           <Tab.Navigator
             /*Se define la ruta en la que empieza*/
-            initialRouteName='Profile'
+            /*Home*/
+            initialRouteName='Home'
             screenOptions={{
               /*Colores bottomNavigator*/
               tabBarActiveTintColor: '#39ab22',
@@ -126,35 +191,39 @@ export default function App() {
               headerShown: false
             }}>
             {/*En cada Tab.Screen hay un ícono propio de expo que se trae de @expo/vector-icons*/}
-            <Tab.Screen name="Resources" component={HomeView}
+            <Tab.Screen name="Resources"
               options={{
-                tabBarLabel:'Resources',
+                tabBarLabel: 'Resources',
                 tabBarIcon: ({ color, size }) => (
                   <Entypo name="light-bulb" color={color} size={size} />
                 ),
-              }} />
-            <Tab.Screen name="Home" component={HomeView}
+              }} >
+                {() => <ResourcesView posts={posts} />}
+              </Tab.Screen>
+            <Tab.Screen name="Home"
               options={{
                 tabBarLabel: 'Home',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="home" color={color} size={size} />
                 ),
-              }} />
-            <Tab.Screen name="Profile" 
+              }} >
+                {() => <HomeView />}
+              </Tab.Screen>
+            <Tab.Screen name="Profile"
               options={{
                 tabBarLabel: 'Profile',
                 tabBarIcon: ({ color, size }) => (
                   <MaterialCommunityIcons name="account" color={color} size={size} />
                 ),
               }}
-              >
-                {() => <ProfileView userData={userData}/>}
-              </Tab.Screen>
+            >
+              {() => <ProfileView userData={userData} posts={posts} />}
+            </Tab.Screen>
           </Tab.Navigator>
         ) : (
           <Stack.Navigator>
             <Stack.Screen name="SignIn" component={RegistrationView} options={{ headerShown: false }} />
-            <Tab.Screen name="LogIn" component={LoginView} options={{ headerShown: false }}/>
+            <Tab.Screen name="LogIn" component={LoginView} options={{ headerShown: false }} />
           </Stack.Navigator>
         )}
       </NavigationContainer>
