@@ -5,15 +5,22 @@ import { Black, DarkGray, Gray, Green, White } from '../Components/Estilos';
 import { FlatList } from 'react-native-gesture-handler';
 import ProductPost from '../Components/ProductPost';
 
-export default HomeView = ({posts}) => {
+export default HomeView = ({ posts }) => {
 
     return (
         <>
+            {/* Título pagina */}
             <Text style={styles.titulo}>Find your resources</Text>
+
+            {/* Barra de búsqueda y botón discover container*/}
             <View style={styles.busqueda}>
-                <TextInput style={styles.barraBusqueda}
-                placeholder='What are you looking for?'/>
-                <Foundation name="magnifying-glass" size={24} color="black" style={styles.iconoLupa}/>
+                {/* Barra busqueda */}
+                <View style={styles.barraBusqueda}>
+                    <TextInput 
+                        placeholder='What are you looking for?' />
+                    <Foundation name="magnifying-glass" size={24} color={DarkGray} style={styles.iconoLupa} />
+                </View>
+                {/* Botón Discover */}
                 <View style={styles.discover}>
                     <Text style={styles.textoDiscover}>Discover new Things</Text>
                     <TouchableOpacity>
@@ -21,10 +28,11 @@ export default HomeView = ({posts}) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            {/* Feed de Post en el inicio */}
             <View style={styles.feed}>
                 <FlatList
-                data={posts}
-                renderItem={() => <ProductPost></ProductPost>}
+                    data={posts}
+                    renderItem={({productInfo}) => <ProductPost productInfo={productInfo}/>}
                 />
             </View>
         </>
@@ -32,7 +40,7 @@ export default HomeView = ({posts}) => {
 }
 
 const styles = StyleSheet.create({
-    titulo:{
+    titulo: {
         color: Green,
         marginTop: '10%',
         marginLeft: '3%',
@@ -45,34 +53,36 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'flex-end',
         width: '100%',
-        padding: 5
+        padding: 5,
+        marginBottom: '5%'
     },
     barraBusqueda: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         width: '65%',
         borderWidth: 1.5,
         borderRadius: 5,
         borderColor: Black,
         paddingHorizontal: 7,
-        marginBottom: '5%',
     },
-    iconoLupa:{
-        width: '5%',
-        paddingBottom: '1%'
+    iconoLupa: {
+        width: 'auto',
+        paddingTop: '1%'
     },
-    discover:{
+    discover: {
         width: '17%',
         flexDirection: 'column',
         alignItems: 'center'
     },
-    textoDiscover:{
+    textoDiscover: {
         color: Green,
         textAlign: 'center',
         fontSize: 10
     },
 
-
     feed: {
         width: '100%',
         paddingHorizontal: '3%',
+        columnGap: 5
     },
 });

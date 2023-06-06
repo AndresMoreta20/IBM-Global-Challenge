@@ -2,29 +2,32 @@ import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome, Feather, AntDesign } from '@expo/vector-icons';
 import { Black, DarkGray, Gray, Green, White } from './Estilos';
 
+function hashtag(hashtag) {
+    return <View key={hashtag}>
+        <Text style={styles.hashtag}>#{hashtag}</Text>
+    </View>;
+}
+
+function listaHashtags(list) {
+    return (
+        <View style={styles.hashtags}>
+            {list.map((item) => (
+                hashtag(item)
+            ))}
+        </View>
+    );
+}
+
 
 export default ProductPostEditable = ({ postInfo }) => {
 
-    function hashtag(hashtag) {
-        return <View key={hashtag}>
-            <Text style={styles.hashtag}>#{hashtag}</Text>
-        </View>;
-    }
-
-    function listaHastags(list) {
-        return (
-            <View>
-                {list.map((item) => (
-                    hashtag(item)
-                ))}
-            </View>
-        );
-    };
-
     return (
+        /* Post versión editable */
         <View className="post" style={styles.post}>
+            {/* Encabezado del post */}
             <View style={styles.encabezado}>
-                <Text>{postInfo.title}</Text>
+                <Text>{postInfo.name}</Text>
+                {/* Botones eliminar y editar */}
                 <View style={styles.editButtons}>
                     <TouchableOpacity>
                         <Feather name="edit-2" size={20} color="black" />
@@ -34,19 +37,18 @@ export default ProductPostEditable = ({ postInfo }) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            {/* Cuerpo post */}
             <View style={styles.cuerpo}>
                 <Image
-                    /*!! Aquí no sé como se recibe la imagen o como manejarla
-                      !! Se debe cambiar el require por un {uri: postInfo.image}*/
+                    /*!! Se debe cambiar el require por un {uri: postInfo.image}*/
                     source={require('../../assets/img.png')}
                     style={styles.imagenPost}
                 />
+                {/* Información del post */}
                 <View style={styles.infoPost}>
                     <Text style={styles.description}>{postInfo.description}</Text>
-                    <View style={styles.hashtags}>
-                        {/*!! Falta editar los estilos*/}
-                        {listaHastags(postInfo.hashtags)}
-                    </View>
+                    {/*!! Falta editar los estilos*/}
+                    { listaHashtags(postInfo.hashtags)}
                     <View style={styles.likes}>
                         <AntDesign name="like2" size={20} color="black" />
                         <Text>{postInfo.likes}</Text>
@@ -99,11 +101,12 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
 
     },
-    /*!! Como hago para que se pongan una sola fila */
     hashtags: {
         flexDirection: 'row',
+        marginVertical: '5%',
         flexWrap: 'wrap',
-        marginVertical: '5%'
+        gap: 3,
+        justifyContent: 'flex-start'
     },
     hashtag: {
         color: White,
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
     likes: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
+        alignItems: 'flex-end',
         gap: 10
     },
 });

@@ -11,18 +11,14 @@ export default HomeView = ({ posts }) => {
     return (
         <>
             <Text style={styles.titulo}>For me</Text>
-                {/* <TextInput style={styles.barraBusqueda}
-                placeholder='What are you looking for?'/>
-                <Foundation name="magnifying-glass" size={24} color="black" style={styles.iconoLupa}/> */}
-
-                <View style={styles.barraBusqueda}>
-                    <TextInput placeholder='What are you looking for?' />
-                    <Foundation name="magnifying-glass" size={24} color={DarkGray} style={styles.iconoLupa} />
-                </View>
+            <View style={styles.barraBusqueda}>
+                <TextInput placeholder='What are you looking for?' />
+                <Foundation name="magnifying-glass" size={24} color={DarkGray} style={styles.iconoLupa} />
+            </View>
             <View style={styles.feed}>
                 <FlatList
                     data={posts}
-                    renderItem={() => <SuggestionPost />}
+                    renderItem={({item}) => <SuggestionPost suggestionPosts={item}/>}
                 />
             </View>
         </>
@@ -38,9 +34,10 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 
-    barraBusqueda:{
+    barraBusqueda: {
         marginHorizontal: '3%',
-        width: '75%',
+        marginBottom: '5%',
+        width: '94%',
         paddingLeft: 5,
         paddingRight: 10,
         flexDirection: 'row',
@@ -60,9 +57,9 @@ const styles = StyleSheet.create({
         fontSize: 10
     },
 
-
     feed: {
         width: '100%',
+        height: '75%',
         paddingHorizontal: '3%',
     },
 });
